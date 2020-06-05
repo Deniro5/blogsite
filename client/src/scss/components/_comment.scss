@@ -1,0 +1,60 @@
+#commentContainer {
+  width: 90%;
+  margin: 10px auto;
+  padding: 5px;
+  word-wrap: break-word;
+  color: black;
+  border-bottom: 1px solid lightgrey;
+  min-height: 155px;
+  position: relative;
+  text-align: left;
+}
+
+#commentInfoContainer {
+  display: inline-block;
+  width: 17%;
+  text-align: center;
+  img {
+    border-radius: 360px;
+    height: 75px;
+    width: 75px;
+    margin-top: 10px;
+  }
+  p {
+    font-size: 12px;
+  }
+}
+
+#commentContentContainer {
+  vertical-align: top;
+  width: 78%;
+  display: inline-block;
+  text-align: justify;
+  align-content: center;
+  padding-left: 10px;
+  font-size: 14px;
+  line-height: 25px;
+}
+
+@media only screen and (max-width: 720px) {
+  #commentInfoContainer {
+    margin-top: -5px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    img {
+      float: left;
+      margin-right: 10px;
+      margin-left: 5px;
+    }
+    p {
+      transform: translateY(30px);
+      font-size: 12px;
+    }
+  }
+  #commentContentContainer {
+    margin-top: 10px;
+    width: 100%;
+    padding-left: 0px;
+  }
+}

@@ -1,0 +1,185 @@
+$primary: #ff6f61;
+
+#createArticleContainer {
+  margin-top: 130px;
+}
+
+#createArticlePreview {
+  max-width: 1000px;
+  width: 80%;
+  display: inline-block;
+  border: 1px solid black;
+  margin-left: 150px;
+  margin-right: 20px;
+  padding-bottom: 50px;
+  ::placeholder {
+    color: grey;
+  }
+}
+
+#createArticleControls {
+  display: inline-block;
+  position: fixed;
+  top: 100px;
+  left: 0px;
+  button {
+    display: block;
+    width: 120px;
+    height: 35px;
+    border: none;
+    background: $primary;
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 20px;
+  }
+}
+
+#createArticleTitle {
+  font-weight: 400;
+  font-size: 40px;
+  margin-bottom: 50px;
+  margin-top: 40px;
+  border: none;
+  outline: none;
+  text-align: center;
+  width: 90%;
+}
+
+#createArticleImgCaption {
+  width: 86%;
+  margin: auto;
+  background: rgb(238, 238, 238);
+  margin-top: -5px;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 2%;
+  border: none;
+  outline: none;
+  resize: none;
+  text-align: center;
+}
+
+#createArticleSubHeading {
+  margin-top: 40px;
+  font-size: 24px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  resize: none;
+  text-align: center;
+  border: 1px lightgrey dotted;
+  width: 90%;
+}
+
+.createArticleText {
+  white-space: pre; //allows newlines to be read properly
+  text-align: justify;
+  font-size: 14px;
+  line-height: 27px;
+  width: 90%;
+  margin: Auto;
+  margin-top: 40px;
+  border: none;
+  outline: none;
+  resize: none;
+  border: 1px grey dotted;
+}
+
+.textControlButton {
+  position: absolute;
+  top: 1px;
+  width: 21px;
+  height: 19px;
+  text-align: center;
+  border: 1px grey solid;
+  margin: -1px;
+  margin-top: -20px;
+  display: inline-block;
+  cursor: pointer;
+  background: lightgray;
+  &:hover {
+    background: whitesmoke;
+  }
+}
+
+.createArticleBlock {
+  position: relative;
+}
+
+#blockDelete {
+  font-size: 24px;
+  position: absolute;
+  color: rgb(189, 2, 2);
+  font-weight: bold;
+  top: 15px;
+  left: 5px;
+  cursor: pointer;
+}
+
+.blockMove {
+  position: absolute;
+  left: -1px;
+  cursor: pointer;
+}
+
+#addImageIcon {
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: 75px;
+  left: 3px;
+}
+
+#addImageInput {
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: 75px;
+  left: -10px;
+  opacity: 0;
+}
+
+#addImageContainer {
+  position: relative;
+}
+
+#addImageButtonInput {
+  //for the initial image add
+  height: 50px;
+  width: 120px;
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#createArticleDescription {
+  width: 85%;
+  max-width: 400px;
+  resize: none;
+  outline-width: 1px;
+  padding: 10px;
+  font-size: 14px;
+  margin-bottom: 40px;
+  border: dotted 1px grey;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+@media only screen and (max-width: 720px) {
+  #createArticleControls {
+    top: 100px;
+    left: -10px;
+    button {
+      display: block;
+      width: 80px;
+      height: 35px;
+      font-size: 11px;
+    }
+  }
+  #createArticlePreview {
+    margin-left: 100px;
+  }
+}

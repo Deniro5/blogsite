@@ -1,0 +1,139 @@
+.menu-root {
+  transition: 0.5s;
+}
+
+.menu-root:hover {
+  cursor: pointer;
+}
+
+.shopMenuContainer {
+  display: inline-block;
+  margin: 20px;
+  margin-bottom: 100px;
+}
+
+.shopMenuLabel {
+  margin-bottom: 10px;
+  text-align: center;
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.shopmenu-items {
+  display: block;
+  color: black;
+  background: white;
+  position: absolute;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 102%;
+  left: -1px;
+  right: 0;
+  width: 101%;
+}
+
+.menu-items {
+  display: block;
+  color: black;
+  position: absolute;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.shopmenu-items div {
+  padding: 25px;
+  cursor: pointer;
+  font-size: 12px;
+  background-color: white;
+  border-bottom: 1px solid grey;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  transition: 0.2s;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+}
+
+.shopmenu-items div:hover {
+  background: rgb(247, 247, 247);
+}
+
+.menu-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.menu-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+  cursor: pointer;
+}
+
+.sortmenu {
+  line-height: 4px;
+  width: 25%;
+  min-width: 150px;
+  max-width: 200px;
+  display: inline-block;
+  position: relative;
+  background: white;
+  border: 1px lightgrey solid;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+}
+
+.sortmenu:hover {
+  cursor: pointer;
+  border: 1px grey solid;
+}
+
+.maintext {
+  font-size: 14px;
+  padding: 0;
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.menu-root img {
+  float: right;
+  margin-top: 11px;
+  margin-right: 10px;
+}
+
+.dropDownIcon {
+  float: right;
+  margin-top: 3px;
+  margin-right: 5px;
+  color: rgb(51, 51, 51);
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+@media only screen and (max-width: 960px) {
+  .sortmenu {
+    line-height: 4px;
+    width: 100%;
+    min-width: 100px;
+    display: inline-block;
+    text-align: center;
+    margin: auto;
+  }
+
+  .shopMenuLabel {
+    text-align: center;
+    margin-left: 0px;
+  }
+}

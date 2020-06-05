@@ -1,0 +1,84 @@
+.userListModal {
+  height: 80vh;
+  max-height: 700px;
+  width: 90%;
+  background: white;
+  border-radius: 2px;
+  margin: auto;
+  margin-top: 5vh;
+  position: relative;
+  max-width: 400px;
+  min-width: 300px;
+  padding: 10px;
+}
+
+#userListModalClose {
+  cursor: pointer;
+  position: absolute;
+}
+
+#userListSearch {
+  width: 90%;
+  max-width: 235px;
+  height: 30px;
+  outline: none;
+  padding: 3px;
+  padding-left: 10px;
+  font-size: 14px;
+  border: 1px solid lightgrey;
+}
+
+.userListContainer {
+  margin-top: 30px;
+  text-align: center;
+  h2 {
+    font-size: 24px;
+  }
+  height: 60vh;
+  max-height: 550px;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.userListResultsSegment {
+  position: relative;
+  height: 70px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: lightgray solid 1px;
+  cursor: pointer;
+  transition: 0.5s;
+  line-height: 35px;
+}
+
+.userListResultsSegment:hover {
+  background: rgb(250, 250, 250);
+}
+
+.userListResultsSegmentName {
+  font-weight: bold;
+  margin-bottom: 0px;
+  margin-left: 89px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.userListResultsSegmentImg {
+  float: left;
+  height: 60px;
+  width: 60px;
+  margin-top: 5px;
+  margin-left: 5px;
+  border-radius: 360px;
+}
+
+.userListResultsSegmentInfo {
+  margin-top: 5px;
+  margin-left: 75px;
+  font-size: 12px;
+  color: rgb(43, 43, 43);
+  text-align: left;
+}

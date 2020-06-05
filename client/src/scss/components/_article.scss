@@ -1,0 +1,131 @@
+$primary: #ff6f61;
+
+#articleContainer {
+  margin: auto;
+  margin-top: 130px;
+  max-width: 1000px;
+}
+
+#articleTitle {
+  font-weight: 400;
+  font-size: 40px;
+  margin-bottom: 50px;
+}
+
+#articleSubTitle {
+  @extend #articleTitle;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 24px;
+}
+
+#articleInfoContainer {
+  text-align: left;
+  width: 80%;
+  margin: auto;
+  img {
+    float: left;
+    border-radius: 360px;
+    height: 75px;
+    width: 75px;
+    margin-right: 20px;
+  }
+  p {
+    font-size: 14px;
+  }
+}
+
+#articleMainImg {
+  width: 90%;
+  margin-top: 30px;
+}
+
+#articleImgCaption {
+  width: 86%;
+  margin: auto;
+  background: rgb(238, 238, 238);
+  margin-top: -5px;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 2%;
+}
+
+#articleText {
+  text-align: justify;
+  font-size: 14px;
+  line-height: 27px;
+  width: 90%;
+  margin: Auto;
+  margin-top: 30px;
+}
+
+#articleCommentSubTitle {
+  text-align: left;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid black;
+  font-weight: 600;
+  padding-bottom: 10px;
+  width: 90%;
+}
+
+#articleCommentInput {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  width: 85%;
+  max-width: 500px;
+  resize: none;
+  outline-width: 1px;
+  padding: 10px;
+  font-size: 14px;
+  display: block;
+  margin: auto;
+  margin-top: 40px;
+  border: 1px dotted grey;
+}
+
+#articleCommentSubmit {
+  background: $primary;
+  border: none;
+  height: 40px;
+  width: 150px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#articleLike {
+  @extend #articleCommentSubmit;
+  margin-top: 50px;
+}
+
+#articleLiked {
+  @extend #articleLike;
+  background: grey;
+}
+
+#articleLikeContainer {
+  margin-top: 20px;
+  float: right;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: $primary;
+  img {
+    float: none;
+    height: 22px;
+    width: 22px;
+    transform: translate(8px, 5px);
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  #articleTitle {
+    font-size: 28px;
+  }
+  #articleSubTitle {
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,19 @@
+#footerContainer {
+  width: 100%;
+  margin-top: 150px;
+  text-align: center;
+  color: rgb(66, 66, 66);
+  font-size: 12px;
+  padding-bottom: 5px;
+  img {
+    height: 18px;
+    width: 18px;
+    text-align: center;
+    margin-right: 10px;
+    transform: translateY(4px);
+  }
+  p {
+    display: inline-block;
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,122 @@
+#articlePreviewContainer {
+  position: relative;
+  width: 95%;
+  margin: 10px auto;
+  max-width: 760px;
+  text-align: left;
+  padding: 5px;
+  word-wrap: break-word;
+  transition: 0.4s;
+  color: black;
+  border-bottom: 1px solid lightgrey;
+  min-height: 190px;
+  cursor: pointer;
+}
+
+#articlePreviewTitle {
+  text-align: left;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 24px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#articlePreviewSummary {
+  line-height: 25px;
+  text-decoration: none;
+  font-size: 14px;
+  justify-self: left;
+  color: rgb(40, 40, 40);
+}
+
+#articlePreviewDate {
+  font-size: 12px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  display: inline-block;
+  color: rgb(94, 94, 94);
+}
+
+#articlePreviewImgContainer {
+  float: left;
+}
+#articlePreviewImg {
+  width: 150px;
+  height: 150px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+#articlePreviewContentContainer {
+  width: 75%;
+  display: inline-block;
+}
+
+#articlePreviewLikes {
+  font-size: 12px;
+}
+
+#articlePreviewLikeContainer {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: $primary;
+  img {
+    height: 18px;
+    width: 18px;
+    transform: translate(5px, 3px);
+  }
+  margin-top: 10px;
+}
+
+#articlePreviewDelete {
+  font-size: 20px;
+  position: absolute;
+  color: rgb(189, 2, 2);
+  font-weight: bold;
+  top: -17px;
+  right: 0px;
+  cursor: pointer;
+}
+
+#articlePreviewTextContainer {
+  min-height: 125px;
+}
+
+@media only screen and (max-width: 720px) {
+  #articlePreviewContainer {
+    min-height: 100px;
+  }
+
+  #articlePreviewImg {
+    height: 70px;
+    width: 70px;
+  }
+  #articlePreviewTitle {
+    font-size: 18px;
+  }
+
+  #articlePreviewSummary {
+    line-height: 25px;
+    text-decoration: none;
+    font-size: 12px;
+    justify-self: left;
+  }
+
+  #articlePreviewDate {
+    font-size: 10px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  #articlePreviewDelete {
+    right: 0px;
+    top: -20px;
+  }
+
+  #articlePreviewTextContainer {
+    min-height: 20px;
+  }
+}
