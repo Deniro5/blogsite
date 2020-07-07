@@ -260,9 +260,6 @@ router.patch("/follow", async (req, res, next) => {
           message: "Auth Failed (theres a cookie but jwt expired)",
         });
       }
-      if (currUser.userId == "5ed6f8413b48773b8261a5fd") {
-        return res.status(403).json({});
-      }
       try {
         var user = await User.find({ username: req.body.username }).select(["followers"]);
         if (user.length < 1) {
@@ -321,9 +318,6 @@ router.patch("/unfollow", async (req, res, next) => {
           message: "Auth Failed (theres a cookie but jwt expired)",
         });
       }
-      if (currUser.userId == "5ed6f8413b48773b8261a5fd") {
-        return res.status(403).json({});
-      }
       try {
         var user = await User.find({ username: req.body.username }).select(["followers"]);
         if (user.length < 1) {
@@ -378,9 +372,6 @@ router.patch("/changeimage", upload.single("userImage"), (req, res, next) => {
       res.json({
         user: "",
       });
-    }
-    if (user.userId == "5ed6f8413b48773b8261a5fd") {
-      return res.status(403).json({});
     }
     User.update({ _id: user.userId }, { userImage: req.file.path })
       .exec()

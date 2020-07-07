@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import devMode from "./devmode";
 
 const Login = (props: any) => {
   const [signIn, setSignIn] = useState(true);
@@ -15,7 +16,7 @@ const Login = (props: any) => {
   };
 
   const login = (user: String, pass: String) => {
-    fetch("users/login", {
+    fetch((devMode ? "http://localhost:8000" : "") + "/users/login", {
       method: "POST",
       credentials: "include",
       headers: {

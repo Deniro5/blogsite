@@ -46,9 +46,6 @@ router.patch("/create", upload.array("articleImages"), (req, res, next) => {
           message: "Auth Failed (theres a cookie but jwt expired)",
         });
       }
-      if (currUser.userId == "5ed6f8413b48773b8261a5fd") {
-        return res.status(403).json({});
-      }
       try {
         var user = await User.find({ _id: currUser.userId });
         if (user.length < 1) {
@@ -274,9 +271,6 @@ router.post("/comment/:articleId", (req, res, next) => {
         res.json({
           message: "user doesnt exist",
         });
-      }
-      if (currUser.userId == "5ed6f8413b48773b8261a5fd") {
-        return res.status(403).json({});
       }
       try {
         let user1 = await User.find({ _id: currUser.userId });

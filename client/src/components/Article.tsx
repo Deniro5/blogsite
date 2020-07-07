@@ -1,6 +1,7 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import Comment from "./Comment";
 import { Link } from "react-router-dom";
+import devMode from "./devmode";
 
 export interface comment {
   author: string;
@@ -38,10 +39,14 @@ const Article: React.FC<IArticleProps> = (props) => {
   const [likedBy, setLikedBy] = useState(props.likedBy);
   const [isLikedBy, setIsLikedBy] = useState(props.isLikedBy);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const submitComment = () => {
     if (comment.length > 0) {
       const dateobj = new Date();
-      fetch("/articles/comment/" + _id, {
+      fetch((devMode ? "http://localhost:8000" : "") + "/articles/comment/" + _id, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -58,13 +63,10 @@ const Article: React.FC<IArticleProps> = (props) => {
             alert("Authorization Error");
             window.location.reload();
           }
-          if (res.status === 403) {
-            alert("You are not authorized to perform this action.");
-          }
           return res.json();
         })
         .then((json) => {
-          if (!json) {
+          if (json) {
             setComments([json.newComment, ...comments]);
             setComment("");
           }
@@ -74,7 +76,7 @@ const Article: React.FC<IArticleProps> = (props) => {
   };
 
   const like = () => {
-    fetch("/articles/like/" + _id, {
+    fetch((devMode ? "http://localhost:8000" : "") + "/articles/like/" + _id, {
       method: "PATCH",
       credentials: "include",
       headers: {
@@ -100,7 +102,11 @@ const Article: React.FC<IArticleProps> = (props) => {
     if (block.type === "image") {
       return (
         <Fragment>
-          <img alt='articleimage' id='articleMainImg' src={"/uploads/" + block.content} />
+          <img
+            alt='articleimage'
+            id='articleMainImg'
+            src={(devMode ? "http://localhost:8000" : "") + "/uploads/" + block.content}
+          />
           {block.caption!.length > 0 && <p id='articleImgCaption'>{block.caption}</p>}
         </Fragment>
       );
@@ -120,7 +126,10 @@ const Article: React.FC<IArticleProps> = (props) => {
           <img alt='like' src='/img/like.png' />
         </div>
         <Link to={"/profile/" + author}>
-          <img alt='userimage' src={"/" + userImage} />
+          <img
+            alt='userimage'
+            src={(devMode ? "http://localhost:8000" : "") + "/" + userImage}
+          />
         </Link>
         <div style={{ paddingTop: 3 }}>
           <p>

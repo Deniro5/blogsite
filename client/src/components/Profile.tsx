@@ -4,6 +4,7 @@ import { withRouter, useParams, RouteComponentProps } from "react-router";
 import Modal from "@material-ui/core/Modal";
 import UserList from "./UserList";
 import Error from "./Error";
+import devMode from "./devmode";
 
 export interface IProfileProps extends RouteComponentProps<any> {
   history: any;
@@ -34,7 +35,7 @@ const Profile: React.FC<IProfileProps> = (props) => {
 
   useEffect(() => {
     const fetchPath = user || "userprofile"; // if user isnt defined we show the current users profile
-    fetch("/users/" + fetchPath, {
+    fetch((devMode ? "http://localhost:8000" : "") + "/users/" + fetchPath, {
       method: "get",
       credentials: "include",
       headers: {
@@ -70,7 +71,7 @@ const Profile: React.FC<IProfileProps> = (props) => {
   const logout = () => {
     const choice = window.confirm("Are you sure you want to log out?");
     if (choice) {
-      fetch("/users/logout", {
+      fetch((devMode ? "http://localhost:8000" : "") + "/users/logout", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -86,7 +87,7 @@ const Profile: React.FC<IProfileProps> = (props) => {
 
   const follow = () => {
     if (!isFollowing) {
-      fetch("/users/follow", {
+      fetch((devMode ? "http://localhost:8000" : "") + "/users/follow", {
         method: "PATCH",
         credentials: "include",
         headers: {
@@ -101,8 +102,6 @@ const Profile: React.FC<IProfileProps> = (props) => {
           if (res.status === 401) {
             alert("authorization error");
             window.location.reload();
-          } else if (res.status === 403) {
-            alert("You are not authorized to perform this action");
           } else {
             return res.json();
           }
@@ -124,7 +123,7 @@ const Profile: React.FC<IProfileProps> = (props) => {
 
   const unfollow = () => {
     if (isFollowing) {
-      fetch("/users/unfollow", {
+      fetch((devMode ? "http://localhost:8000" : "") + "/users/unfollow", {
         method: "PATCH",
         credentials: "include",
         headers: {
@@ -139,8 +138,6 @@ const Profile: React.FC<IProfileProps> = (props) => {
           if (res.status === 401) {
             alert("authorization error");
             window.location.reload();
-          } else if (res.status === 403) {
-            alert("You are not authorized to perform this action");
           } else {
             return res.json();
           }
@@ -160,64 +157,72 @@ const Profile: React.FC<IProfileProps> = (props) => {
   };
 
   const deleteArticle = (id: string) => {
-    const choice = window.confirm("Are you sure you want to delete this article?");
-    if (choice) {
-      fetch("/articles/" + id, {
-        method: "DELETE",
+    if (devMode) {
+      const choice = window.confirm("Are you sure you want to delete this article?");
+      if (choice) {
+        fetch((devMode ? "http://localhost:8000" : "") + "/articles/" + id, {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => {
+            if (res.status === 401) {
+              alert("authorization error");
+              window.location.reload();
+            }
+            return res.json();
+          })
+          .then((json) => {
+            //for this and like we gotta check if theyre good
+            let newArticles = articles.filter((article: any) => {
+              return article._id !== id;
+            });
+            setArticles(newArticles);
+          });
+      }
+    } else {
+      alert("Cannot perform this action in the demo version");
+    }
+  };
+
+  const onImageChangeHandler = () => {
+    if (devMode) {
+      var reader = new FileReader();
+      reader.onload = () => {
+        setUserImage(reader.result!.toString());
+        props.setHeaderImage(reader.result!.toString());
+      };
+      reader.readAsDataURL(uploadRef.current!.files![0]!);
+      var formData = new FormData();
+      formData.append("userImage", uploadRef.current!.files![0]);
+      fetch((devMode ? "http://localhost:8000" : "") + "/users/changeimage", {
+        method: "PATCH",
         credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+        body: formData,
       })
         .then((res) => {
           if (res.status === 401) {
             alert("authorization error");
             window.location.reload();
+          } else if (res.status === 403) {
+            alert("You are not authorized to perform this action.");
+          } else {
+            return res.json();
           }
-          return res.json();
         })
         .then((json) => {
-          //for this and like we gotta check if theyre good
-          let newArticles = articles.filter((article: any) => {
-            return article._id !== id;
-          });
-          setArticles(newArticles);
-        });
+          if (!json) {
+            setUserImage("uploads/defaultUser.png");
+            props.setHeaderImage("uploads/defaultUser.png");
+          }
+        })
+        .catch((error) => alert(error));
+    } else {
+      alert("Cannot perform this action in the demo version");
     }
-  };
-
-  const onImageChangeHandler = () => {
-    var reader = new FileReader();
-    reader.onload = () => {
-      setUserImage(reader.result!.toString());
-      props.setHeaderImage(reader.result!.toString());
-    };
-    reader.readAsDataURL(uploadRef.current!.files![0]!);
-    var formData = new FormData();
-    formData.append("userImage", uploadRef.current!.files![0]);
-    fetch("/users/changeimage", {
-      method: "PATCH",
-      credentials: "include",
-      body: formData,
-    })
-      .then((res) => {
-        if (res.status === 401) {
-          alert("authorization error");
-          window.location.reload();
-        } else if (res.status === 403) {
-          alert("You are not authorized to perform this action.");
-        } else {
-          return res.json();
-        }
-      })
-      .then((json) => {
-        if (!json) {
-          setUserImage("uploads/defaultUser.png");
-          props.setHeaderImage("uploads/defaultUser.png");
-        }
-      })
-      .catch((error) => alert(error));
   };
 
   const closeModal = () => {
@@ -233,7 +238,11 @@ const Profile: React.FC<IProfileProps> = (props) => {
 
   return (
     <div id='profileContainer'>
-      <img alt='profilepic' id='profileImage' src={"/" + userImage} />
+      <img
+        alt='profilepic'
+        id='profileImage'
+        src={(devMode ? "http://localhost:8000/" : "/") + userImage}
+      />
       {isUserProfile && (
         <Fragment>
           <input

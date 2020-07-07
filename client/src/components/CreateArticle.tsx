@@ -3,6 +3,7 @@ import SubHeaderCreate from "./SubHeaderCreate";
 import TextCreate from "./TextCreate";
 import ImageCreate from "./ImageCreate";
 import { withRouter } from "react-router-dom";
+import devMode from "./devmode";
 
 export interface block {
   id: number;
@@ -24,7 +25,7 @@ const CreateArticle: React.FC = (props: any) => {
     {
       id: 0,
       type: "image",
-      content: "uploads/default.jpg",
+      content: (devMode ? "http://localhost:8000/" : "/") + "uploads/default.jpg",
       caption: "",
       isDeletable: false,
     },
@@ -38,7 +39,7 @@ const CreateArticle: React.FC = (props: any) => {
   }, [currId]);
 
   useEffect(() => {
-    fetch("/users/userprofile", {
+    fetch((devMode ? "http://localhost:8000" : "") + "/users/userprofile", {
       method: "get",
       credentials: "include",
       headers: {
@@ -208,46 +209,50 @@ const CreateArticle: React.FC = (props: any) => {
   };
 
   const submit = () => {
-    if (title.length === 0 || description.length === 0 || !blocks[0].file) {
-      alert("Please provide a title, description and a main image for the article");
-    }
-    var formData = new FormData();
-    for (let block of blocks) {
-      //remove image source from image blocks
-      if (block.type === "image") {
-        let imgsrc = block.file;
-        if (imgsrc) {
-          formData.append("articleImages", imgsrc);
-          block.content = ""; //no need to pass the string version of the image
+    if (devMode) {
+      if (title.length === 0 || description.length === 0 || !blocks[0].file) {
+        alert("Please provide a title, description and a main image for the article");
+      }
+      var formData = new FormData();
+      for (let block of blocks) {
+        //remove image source from image blocks
+        if (block.type === "image") {
+          let imgsrc = block.file;
+          if (imgsrc) {
+            formData.append("articleImages", imgsrc);
+            block.content = ""; //no need to pass the string version of the image
+          }
         }
       }
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("date", date);
+      formData.append("blocks", JSON.stringify(blocks));
+      fetch((devMode ? "http://localhost:8000" : "") + "/articles/create", {
+        method: "PATCH",
+        credentials: "include",
+        body: formData,
+      })
+        .then((res) => {
+          if (res.status === 401) {
+            alert("Authorization Error");
+            window.location.reload();
+          } else if (res.status === 403) {
+            alert("You are not authorized to perform this action.");
+          } else {
+            return res.json();
+          }
+        })
+        .then((json) => {
+          if (json) {
+            alert("Article successfully created");
+            props.history.push("/");
+          }
+        })
+        .catch((error) => alert(error));
+    } else {
+      alert("Cannot perform this action in the demo version");
     }
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("date", date);
-    formData.append("blocks", JSON.stringify(blocks));
-    fetch("/articles/create", {
-      method: "PATCH",
-      credentials: "include",
-      body: formData,
-    })
-      .then((res) => {
-        if (res.status === 401) {
-          alert("Authorization Error");
-          window.location.reload();
-        } else if (res.status === 403) {
-          alert("You are not authorized to perform this action.");
-        } else {
-          return res.json();
-        }
-      })
-      .then((json) => {
-        if (json) {
-          alert("Article successfully created");
-          props.history.push("/");
-        }
-      })
-      .catch((error) => alert(error));
   };
 
   return (
@@ -298,7 +303,10 @@ const CreateArticle: React.FC = (props: any) => {
           onChange={(e) => handleDescriptionChange(e)}
         />
         <div id='articleInfoContainer'>
-          <img alt='profilepicture' src={userImage} />
+          <img
+            alt='profilepicture'
+            src={(devMode ? "http://localhost:8000/" : "/") + userImage}
+          />
           <div style={{ paddingTop: 3 }}>
             <p> By: {username} </p>
             <p> Posted on {date} </p>

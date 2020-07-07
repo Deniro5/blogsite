@@ -9,6 +9,7 @@ import DisplayArticle from "./DisplayArticle";
 import DisplayArticlePreview from "./DisplayArticlePreviews";
 import Footer from "./Footer";
 import Error from "./Error";
+import devMode from "./devmode";
 
 interface IHeaderProps {
   userImage: string;
@@ -96,7 +97,11 @@ const Header: React.FC<IHeaderProps> = (props) => {
         </div>
         <Hidden xsDown>
           <Link to='/profile'>
-            <img alt='profile' id='headerProfileBtn' src={userImage} />
+            <img
+              alt='profile'
+              id='headerProfileBtn'
+              src={(devMode ? "http://localhost:8000/" : "/") + userImage}
+            />
           </Link>
           <Link to='/create'>
             <button id='newPostBtn'> New Post </button>

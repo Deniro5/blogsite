@@ -1,5 +1,6 @@
 import React, { SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
+import devMode from "./devmode";
 
 export interface IArticlePreviewProps {
   title: string;
@@ -35,7 +36,11 @@ const ArticlePreview: React.FC<IArticlePreviewProps> = (props) => {
     <Link to={"/article/" + _id}>
       <div id='articlePreviewContainer'>
         <div id='articlePreviewImgContainer'>
-          <img alt='articleimage' id='articlePreviewImg' src={"/uploads/" + blocks} />
+          <img
+            alt='articleimage'
+            id='articlePreviewImg'
+            src={(devMode ? "http://localhost:8000" : "") + "/uploads/" + blocks}
+          />
           <div id='articlePreviewLikeContainer'>
             {likedBy.length}
             <img alt='like' src='/img/like.png' />

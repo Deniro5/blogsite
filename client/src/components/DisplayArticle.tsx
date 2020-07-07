@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Article from "./Article";
 import { useParams } from "react-router";
 import Error from "./Error";
+import devMode from "./devmode";
 
 const DisplayArticle: React.FC = () => {
   const { articleId } = useParams();
@@ -10,7 +11,7 @@ const DisplayArticle: React.FC = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch("/articles/" + articleId, {
+    fetch((devMode ? "http://localhost:8000" : "") + "/articles/" + articleId, {
       method: "get",
       credentials: "include",
       headers: {
@@ -40,7 +41,7 @@ const DisplayArticle: React.FC = () => {
   }, [articleId]);
 
   if (!isLoaded) {
-    return <p style={{ marginTop: "100px" }}>Loading </p>;
+    return <p style={{ minHeight: "100vh" }}> </p>;
   } else if (error) {
     return <Error />;
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import devMode from "./devmode";
 
 export interface ICommentProps {
   author: string;
@@ -15,7 +16,10 @@ const Comment: React.FC<ICommentProps> = (props) => {
     <div id='commentContainer'>
       <div id='commentInfoContainer'>
         <Link style={{ color: "black" }} to={"/profile/" + author}>
-          <img alt='userimage' src={"/" + userImage} />
+          <img
+            alt='userimage'
+            src={(devMode ? "http://localhost:8000" : "") + "/" + userImage}
+          />
           <p> {author}</p>
         </Link>
         <p> {date} </p>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import devMode from "./devmode";
 
 interface user {
   username: string;
@@ -53,7 +54,7 @@ const UserList: React.FC<IUserListProps> = (props) => {
               <div onClick={closeModal} className='userListResultsSegment'>
                 <img
                   alt='productImg'
-                  src={"/" + user.userImage}
+                  src={(devMode ? "http://localhost:8000/" : "/") + user.userImage}
                   className='userListResultsSegmentImg'
                 />
                 <p className='userListResultsSegmentName'>{user.username}</p>

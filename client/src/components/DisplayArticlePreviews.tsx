@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ArticlePreview from "./ArticlePreview";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useParams } from "react-router";
+import devMode from "./devmode";
 
 const DisplayArticlePreviews: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -16,7 +17,8 @@ const DisplayArticlePreviews: React.FC = () => {
 
   const fetchPreview = (oldArticles: any[]) => {
     fetch(
-      "/articles/previews/" +
+      (devMode ? "http://localhost:8000" : "") +
+        "/articles/previews/" +
         (display === "Custom feed") +
         "/" +
         maxArticles +

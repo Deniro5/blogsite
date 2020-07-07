@@ -26,12 +26,12 @@
   background: white;
   position: absolute;
   border-top: none;
-  z-index: 99;
+  z-index: 98;
   /*position the autocomplete items to be the same width as the container:*/
   top: 102%;
   left: -1px;
   right: 0;
-  width: 101%;
+  width: 152px;
 }
 
 .menu-items {
@@ -81,9 +81,7 @@
 
 .sortmenu {
   line-height: 4px;
-  width: 25%;
-  min-width: 150px;
-  max-width: 200px;
+  width: 150px;
   display: inline-block;
   position: relative;
   background: white;
@@ -125,11 +123,14 @@
 @media only screen and (max-width: 960px) {
   .sortmenu {
     line-height: 4px;
-    width: 100%;
-    min-width: 100px;
+    width: 123px;
     display: inline-block;
     text-align: center;
     margin: auto;
+  }
+
+  .shopmenu-items {
+    width: 125px;
   }
 
   .shopMenuLabel {

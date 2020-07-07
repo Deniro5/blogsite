@@ -1,6 +1,7 @@
 import React from "react";
 import "./scss/App.scss";
 import Login from "./components/Login";
+import devMode from "./components/devmode";
 import Header from "./components/Header";
 import { useEffect, useState } from "react";
 import { HashRouter as Router, Route, Redirect, Switch } from "react-router-dom";
@@ -12,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     //Check if the user is already authenticated
-    fetch("users/checkauth", {
+    fetch((devMode ? "http://localhost:8000/" : "") + "users/checkauth", {
       method: "POST",
       credentials: "include",
       headers: {
